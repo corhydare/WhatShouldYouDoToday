@@ -23,6 +23,7 @@ window.addEventListener("load", () => {
       // using fetch to get UVI data
       fetch(uviD)
         .then((response) => {
+          // log to find uvi data
           console.log(response);
           return response.json();
         })
