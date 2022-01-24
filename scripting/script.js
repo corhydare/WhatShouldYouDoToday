@@ -1,3 +1,15 @@
+// todays date needs to be shown
+let date = new Date();
+let day = date.getDate();
+let month = date.getMonth() + 1;
+let year = date.getFullYear();
+
+let fullDate = `${day}-${month}-${year}`;
+console.log(fullDate);
+// find a place to put the date in
+const todays = document.getElementById("todays");
+todays.textContent = `${fullDate}`;
+
 // personal key goes into api constant (it will be disabled after the graded project, for security)
 const api = "871b1ca27dfbb558cfcae80665059258";
 
