@@ -5,21 +5,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: black;
     /* border-radius: 10px; */
 }
 
 body {
-    background-color: #f1c27d;
+    overflow-x: hidden;
+    color: #474747;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: linear-gradient(#F8B195, #F67280, #C06C84, #6C5B7B, #355C7D);
 }
+
 
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: #ffdbac;
+    background: #FFD3B5;
     border-radius: 10px;
+    color: #474747;
 }
 
 .weather {
@@ -49,7 +54,7 @@ body {
 }
 
 .search {
-    background-color: #f1c27d;
+    background-color: transparent;
     /* padding: 1rem; */
     /* margin: 15px 0; */
 }
@@ -63,12 +68,14 @@ main {
 }
 
 #notfar {
-    background-color: #c68642;
+    background-color: #A8A7A7;
     border: none;
-    color: black;
+    color: white;
 }
 
 #notfar:hover {
-    background-color: #8d5524;
+    background-color: #363636;
     color: white;
 }
+
+/* 5 day forecast */
