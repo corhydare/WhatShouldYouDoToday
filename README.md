@@ -94,4 +94,4 @@ body {
 
 ## Conclusion
 
-Things are starting to make more and more sense. I'm content.
+Both day planner and this app have helped me understand significantly more than from just lectures. Thank you.
