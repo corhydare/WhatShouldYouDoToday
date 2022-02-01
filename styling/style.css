@@ -16,8 +16,22 @@ body {
     background-image: linear-gradient(#F8B195, #F67280, #C06C84, #6C5B7B, #355C7D);
 }
 
+#sDisplay {
+    background-color: #FFD3B5;
+    color: #474747;
+}
 
 .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #FFD3B5;
+    border-radius: 10px;
+    color: #474747;
+}
+
+.present {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,7 +45,6 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* margin: 15px 0; */
     font-size: 1.5rem;
 }
 
@@ -47,16 +60,12 @@ body {
 }
 
 #fiveDays {
-    /* background-color: #a8e6cf; */
     justify-content: center;
     padding-top: 1rem;
-    /* border-radius: 10px; */
 }
 
-.search {
+.Searching {
     background-color: transparent;
-    /* padding: 1rem; */
-    /* margin: 15px 0; */
 }
 
 main {
@@ -79,3 +88,13 @@ main {
 }
 
 /* 5 day forecast */
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #FFD3B5;
+    border-radius: 10px;
+    color: #474747;
+
+}

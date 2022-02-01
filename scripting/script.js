@@ -6,7 +6,7 @@ let year = date.getFullYear();
 
 let fullDate = `${day}-${month}-${year}`;
 console.log(fullDate);
-// find a place to put the date in
+// date goes in
 const todays = document.getElementById("todays");
 todays.textContent = `${fullDate}`;
 
@@ -85,34 +85,105 @@ $("#notfar").click(function (event) {
       // changing text in html doc
       fiveDays.textContent = `${placeF} ${description} ${temp.toFixed(0)} °F`;
     });
-
-  // function displayCities(cityList) {
-  //   $(".townships").empty();
-  //   var dataList = localStorage.getItem("cityList");
-  //   cityList = JSON.parse(dataList);
-  //   // returning as a string, find javascript function to parse cityList
-  //   if (dataList) {
-  //     for (var i = 0; i < cityList.length; i++) {
-  //       var container = $("<div class=card></div>").text(cityList[i]);
-  //       $(".townships").prepend(container);
-  //     }
-  //   }
-  // }
-
-  // const stored = localStorage.getItem("cityList");
-  // if (stored) {
-  //   cityList = JSON.parse(stored);
-  // } else {
-  //   cityList = [];
-  // }
-  // //var cityList = [];
-  // $("#submitCity").click(function (event) {
-  //   event.preventDefault();
-  //   const citySeven = $("#city").val();
-  //   // push city to cityList array
-  //   cityList.push(city);
-  //   // set cityList in localStorage (remember to use stringify!)
-  //   localStorage.setItem("cityList", JSON.stringify(cityList));
-  //   // check length of array. if > 5 then don't add.
-  //   displayCities(cityList);
 });
+
+// and now forecast api
+
+// momentary time
+function show(data) {
+  return (
+    "<h2>" +
+    data.name +
+    moment().format(" (MM/DD/YYYY)") +
+    "</h2>" +
+    `
+      <p><strong>Temperature</strong>: ${data.main.temp} °F</p>
+      <p><strong>Humidity</strong>: ${data.main.humidity}%</p>
+      <p><strong>Wind Speed</strong>: ${data.wind.speed} MPH</p>
+      `
+  );
+}
+// main way to ask for location
+function displayCities(storedLocation) {
+  $(".townships").empty();
+  var list = localStorage.getItem("storedLocation");
+  storedLocation = JSON.parse(list);
+}
+
+function showForecast(data) {
+  console.log(data);
+  var forecast = data.list; // [{},{},{}]
+  // 40 objects broken down, then we take the mid day time and d
+  var currentForecast = [];
+  for (var i = 0; i < forecast.length; i++) {
+    var currentObject = forecast[i];
+    var noonish = currentObject.dt_txt.split(" ")[1];
+    if (noonish === "12:00:00") {
+      // data to be shown
+      var main = currentObject.main;
+      var temp = main.temp;
+      // not idea why i'm getting errors while still displaying proper data
+      var description = currentObject.weather[0].description;
+      var date = moment(currentObject.dt_txt).format("l");
+      var icon = currentObject.weather[0].icon;
+      var iconurl = "https://openweathermap.org/img/w/" + icon + ".png";
+
+      let forecastCard = `
+      <div class="col-sm Present">
+      <div class="card">
+      <div class="card-body fiveDays">
+      <p><strong>${date}</strong></p>
+      <div><img src=${iconurl} /></div>
+      <p>Temp: ${temp} °F</p>
+      <p>${description}</p></div>
+      </div>
+      </div>`;
+      currentForecast.push(forecastCard);
+    }
+  }
+  $("#fiveDays").html(currentForecast.join(""));
+}
+
+// more fetching for the data
+
+var stored = localStorage.getItem("storedLocation");
+if (stored) {
+  storedLocation = JSON.parse(stored);
+} else {
+  storedLocation = [];
+}
+// when submitting city magic happens
+$("#notfar").click(function (event) {
+  event.preventDefault();
+  var city = $("#city").val();
+  // saving city into local storage
+  storedLocation.push(city);
+  // local storage saves the cities (i can't figure out how to prevent duplicates in the localstorage without extra functions and loops)
+  localStorage.setItem("storedLocation", JSON.stringify(storedLocation));
+  // prevents overflow and erases the storage.
+  localStorage.clear();
+  // magic is in progress
+  displayCities(storedLocation);
+  if (city != "") {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=${api}`
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        var display = show(data);
+        $("#sDisplay").html(display);
+      });
+  }
+  fetch(
+    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&APPID=${api}`
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      var forecastDisplay = showForecast(data);
+    });
+}),
+  displayCities(storedLocation);

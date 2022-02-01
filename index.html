@@ -17,7 +17,7 @@
         </nav>
     </header> -->
     <main class="row">
-        <section class="col-sm-4 search">
+        <section class="col-sm-4 Searching">
             <h3>Check the weather:</h3>
             <span id="error"></span>
             <form class="form-inline">
@@ -28,7 +28,8 @@
             <br>
             <div class="townships"></div>
         </section>
-        <footer class="col yourLocation">
+        <div class="col yourLocation">
+            <h3>Today in your area:</h3>
             <div class="card container">
                 <img src="" alt="" srcset="" id="icon-present">
                 <div id="location"></div>
@@ -37,24 +38,28 @@
                 <div class="weather">
                     <div class="temperature"></div>
                 </div>
-                <div class="uvi"></div>
-
             </div>
-            <div class="row" id="fiveDays">
-                <h3>5-Day Forecast:</h3><br>
-                <!-- 5day test -->
-
-                <!-- end -->
+            <div>
+                <h3>Five day Forecast:</h3>
             </div>
-        </footer>
+            <div class="col Present">
+                <div class="card">
+                    <div id="sDisplay" class="card-body"></div>
+                </div>
+                <br>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
-        </script>
+                <div class="row" id="fiveDays">
+                    <!-- 5day test -->
 
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">
-        </script>
+                    <!-- end -->
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
         <script src="scripting/script.js"></script>
 </body>
 
