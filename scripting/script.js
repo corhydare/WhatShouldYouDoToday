@@ -52,7 +52,7 @@ window.addEventListener("load", () => {
           const { temp } = data.main;
           const place = data.name;
           const { description, icon } = data.weather[0];
-          const iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
+          const iconUrl = `https://openweathermap.org/img/w/${icon}.png`;
 
           // changing text in html doc
           iconP.src = iconUrl;
