@@ -14,6 +14,7 @@ todays.textContent = `${fullDate}`;
 const api = "871b1ca27dfbb558cfcae80665059258";
 
 // variables for the current weather
+
 const iconP = document.getElementById("icon-present");
 const loc = document.querySelector("#location");
 const temps = document.querySelector(".temperature");
@@ -43,7 +44,7 @@ window.addEventListener("load", () => {
           const { uvi } = data.current;
           uviT.textContent = `UV index: ${uvi}`;
         });
-      // ucing fetch to get other weather values
+      // using fetch to get other weather values
       fetch(base)
         .then((response) => {
           return response.json();
@@ -80,10 +81,7 @@ $("#notfar").click(function (event) {
     .then((data) => {
       const { temp } = data.list;
       const placeF = data.name;
-      const { description } = data.weather;
-
-      // changing text in html doc
-      fiveDays.textContent = `${placeF} ${description} ${temp.toFixed(0)} °F`;
+      fiveDays.textContent = `${placeF} ${temp} °F`;
     });
 });
 
@@ -104,10 +102,13 @@ function show(data) {
   );
 }
 // main way to ask for location
-function displayCities(storedLocation) {
+function displayCities(townships) {
   $(".townships").empty();
-  var list = localStorage.getItem("storedLocation");
-  storedLocation = JSON.parse(list);
+  let cityList = document.getElementById("city").value;
+  localStorage.setItem("cityList", cityList);
+  townships = localStorage.getItem("cityList");
+  var container = $("<div class=card></div>").text(townships);
+  $(".townships").prepend(container);
 }
 
 function showForecast(data) {
@@ -134,7 +135,7 @@ function showForecast(data) {
       <div class="card-body fiveDays">
       <p><strong>${date}</strong></p>
       <div><img src=${iconurl} /></div>
-      <p>Temp: ${temp} °F</p>
+      <p>Temperature: ${temp} °F</p>
       <p>${description}</p></div>
       </div>
       </div>`;
@@ -146,24 +147,24 @@ function showForecast(data) {
 
 // more fetching for the data
 
-var stored = localStorage.getItem("storedLocation");
+var stored = localStorage.getItem("townships");
 if (stored) {
-  storedLocation = JSON.parse(stored);
+  townships = JSON.parse(stored);
 } else {
-  storedLocation = [];
+  townships = [];
 }
 // when submitting city magic happens
 $("#notfar").click(function (event) {
   event.preventDefault();
   var city = $("#city").val();
   // saving city into local storage
-  storedLocation.push(city);
+  townships.push(city);
   // local storage saves the cities (i can't figure out how to prevent duplicates in the localstorage without extra functions and loops)
-  localStorage.setItem("storedLocation", JSON.stringify(storedLocation));
+  localStorage.setItem("townships", JSON.stringify(townships));
   // prevents overflow and erases the old stuff
   localStorage.clear();
   // magic is in progress
-  displayCities(storedLocation);
+  displayCities(townships);
   if (city != "") {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=${api}`
@@ -186,4 +187,4 @@ $("#notfar").click(function (event) {
       var forecastDisplay = showForecast(moreData);
     });
 }),
-  displayCities(storedLocation);
+  displayCities(townships);
