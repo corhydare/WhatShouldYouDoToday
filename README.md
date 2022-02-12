@@ -95,5 +95,3 @@ body {
 ## Conclusion
 
 Both day planner and this app have helped me understand significantly more than from just lectures. 
-
-# oneweather stopped working with current license, hence the errors and lack of UVI
