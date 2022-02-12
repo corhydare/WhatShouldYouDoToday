@@ -160,7 +160,7 @@ $("#notfar").click(function (event) {
   storedLocation.push(city);
   // local storage saves the cities (i can't figure out how to prevent duplicates in the localstorage without extra functions and loops)
   localStorage.setItem("storedLocation", JSON.stringify(storedLocation));
-  // prevents overflow and erases the storage.
+  // prevents overflow and erases the old stuff
   localStorage.clear();
   // magic is in progress
   displayCities(storedLocation);
@@ -168,22 +168,22 @@ $("#notfar").click(function (event) {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=${api}`
     )
-      .then((response) => {
-        return response.json();
+      .then((answering) => {
+        return answering.json();
       })
-      .then((data) => {
-        var display = show(data);
+      .then((moreData) => {
+        var display = show(moreData);
         $("#sDisplay").html(display);
       });
   }
   fetch(
     `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&APPID=${api}`
   )
-    .then((response) => {
-      return response.json();
+    .then((answering) => {
+      return answering.json();
     })
-    .then((data) => {
-      var forecastDisplay = showForecast(data);
+    .then((moreData) => {
+      var forecastDisplay = showForecast(moreData);
     });
 }),
   displayCities(storedLocation);
